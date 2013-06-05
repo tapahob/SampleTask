@@ -1,5 +1,4 @@
 #pragma once
-#define MAX_STR_LENGTH 256
 
 class myString
 {

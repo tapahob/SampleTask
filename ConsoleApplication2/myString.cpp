@@ -3,8 +3,8 @@
 
 myString::myString(void)
 {
-	_string = new char[MAX_STR_LENGTH];
-	strcpy(_string, "");
+	_string = new char[1];
+	strcpy(_string, "\n");
 }
 
 myString::myString( const myString& other)
@@ -15,11 +15,13 @@ myString::myString( const myString& other)
 myString::~myString(void)
 {
 	delete[] _string;
+	_string = NULL;
 }
 
 myString& myString::operator=(const myString& other)
 {
-	_string = new char[MAX_STR_LENGTH];
+	auto len = other.Length();
+	_string = new char[len+1];
 	strcpy(_string, other.cStr());
 	return *this;
 }
@@ -43,10 +45,12 @@ const myString& myString::operator+( const myString& other ) const
 {
 	myString* result = new myString(*this);
 
-	char str1[MAX_STR_LENGTH];
+	auto length = other.Length() + Length();
+	auto str1 = new char[length + 1];
 	strcpy(str1,_string);
-	strcat_s(str1, other.cStr());
+	strcat(str1, other.cStr());
 
 	*result = str1;
+	delete[] str1;
 	return *result;
 }
